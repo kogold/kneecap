@@ -104,6 +104,7 @@ module.exports = function createServer(options) {
                     const requestType = responseDetails.requestType;
                     const responseType = responseDetails.responseType;
                     const bodyFromUser = responseDetails.bodyFromUser;
+                    const icapHeaders = response.icapHeaders;
                     let body;
                     debug(`body from ${responseType} ${bodyFromUser ? 'user' : 'icap'}`);
                     if (bodyFromUser) {
@@ -126,6 +127,8 @@ module.exports = function createServer(options) {
                                 statusCode: 200,
                                 statusText: 'OK',
                             };
+                            response.headers = icapHeaders;
+
                             if (responseType === 'request') {
                                 response.payload = new Map([
                                     ['req-hdr', requestHeaders],
